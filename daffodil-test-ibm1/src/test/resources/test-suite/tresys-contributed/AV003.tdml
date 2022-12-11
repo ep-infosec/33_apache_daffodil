@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<testSuite suiteName="AV003" xmlns="http://www.ibm.com/xmlns/dfdl/testData"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:ex="http://example.com"
+  defaultImplementations="daffodil">
+
+  <parserTestCase name="AV003" root="wholeFile" model="AV.dfdl.xsd"
+    description="HR/CU Medical data" roundTrip="false">
+    <document><documentPart type="text" replaceDFDLEntities="true"><![CDATA[%#x1b;E%#x1b;(s5TTR0104                            CENTRAMAX.M                      Page:    1
+                                  Triage Calls
+                       Call Summary by Presenting Symptom
+                             Call Types: I O M T R N
+                        Report Date:  04/10/2008 04:36 AM
+                     Calls From: 03/23/2008 To: 03/23/2008
+
+                          Presenting Symptom   # Times
+-------------------------------------------------------------------------------
+                               ABDPAINS            3
+                               ABDSWELL            1
+                               ALLERGIC            1
+                               ANXIETY             1
+                               BACKPAIN            3
+                               BURN                1
+                               CHESTPN             3
+                               CONFSD              1
+                               COUGH               6
+                               DIARRHEA            8
+                               DOC                 3
+                               EARACHE             1
+                               EARDISCH            1
+                               EYEPAIN             1
+                               FEVER               1
+                               FLUSYMPT            3
+                               FORBODY             1
+                               HEARLOSS            1
+                               HIPPAIN             1
+                               INFO                3
+                               LACERAT             2
+                               LIPAIN              2
+                               MEDS                2
+                               MOUTHSOR            1
+                               MUSCACHE            1
+                               NAUSEA              1
+                               NEURODFC            1
+                               NOSEBLEE            1
+                               NOSYMPTO            3
+                               NUMBNESS            1
+                               PAIN                1
+                               PAINDIG             1
+                               POISON              2
+                               RASH                2
+                               REFILL              3
+                               REPORT              2
+                               SHLDPAIN            1
+                               SOB                 2
+                               SORETHRO            2
+                               STOMACHE            1
+                               SWALLDIF            1
+                               TINGLING            1
+                               TOOTHACH            1
+                               VAGBLEED            2
+                               VAGDISCH            1
+                               VOMITING            5
+                               WEAKNESS            2
+%#x0a;%#x1b;E%#x1b;TR0104                            CENTRAMAX.M                      Page:    2
+                                  Triage Calls
+                       Call Summary by Presenting Symptom
+                             Call Types: I O M T R N
+                        Report Date:  04/10/2008 04:36 AM
+                     Calls From: 03/23/2008 To: 03/23/2008
+
+                          Presenting Symptom   # Times
+-------------------------------------------------------------------------------
+                         Grand Total:             89
+%#x0c;%#x1b;E]]></documentPart></document>
+    <infoset>
+      <dfdlInfoset>
+        <ex:wholeFile>
+          <table>
+            <metadata>
+              <repdate xsi:type="xs:date">2008-04-10-06:00</repdate>
+              <reptime xsi:type="xs:time">04:36:00-06:00</reptime>
+              <startDate xsi:type="xs:date">2008-03-23-06:00</startDate>
+              <endDate xsi:type="xs:date">2008-03-23-06:00</endDate>
+            </metadata>
+            <data>
+              <Symptom xsi:type="xs:string">ABDPAINS</Symptom>
+              <Count xsi:type="xs:int">3</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">ABDSWELL</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">ALLERGIC</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">ANXIETY</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">BACKPAIN</Symptom>
+              <Count xsi:type="xs:int">3</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">BURN</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">CHESTPN</Symptom>
+              <Count xsi:type="xs:int">3</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">CONFSD</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">COUGH</Symptom>
+              <Count xsi:type="xs:int">6</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">DIARRHEA</Symptom>
+              <Count xsi:type="xs:int">8</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">DOC</Symptom>
+              <Count xsi:type="xs:int">3</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">EARACHE</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">EARDISCH</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">EYEPAIN</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">FEVER</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">FLUSYMPT</Symptom>
+              <Count xsi:type="xs:int">3</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">FORBODY</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">HEARLOSS</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">HIPPAIN</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">INFO</Symptom>
+              <Count xsi:type="xs:int">3</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">LACERAT</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">LIPAIN</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">MEDS</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">MOUTHSOR</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">MUSCACHE</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">NAUSEA</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">NEURODFC</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">NOSEBLEE</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">NOSYMPTO</Symptom>
+              <Count xsi:type="xs:int">3</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">NUMBNESS</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">PAIN</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">PAINDIG</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">POISON</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">RASH</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">REFILL</Symptom>
+              <Count xsi:type="xs:int">3</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">REPORT</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">SHLDPAIN</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">SOB</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">SORETHRO</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">STOMACHE</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">SWALLDIF</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">TINGLING</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">TOOTHACH</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">VAGBLEED</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">VAGDISCH</Symptom>
+              <Count xsi:type="xs:int">1</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">VOMITING</Symptom>
+              <Count xsi:type="xs:int">5</Count>
+            </data>
+            <data>
+              <Symptom xsi:type="xs:string">WEAKNESS</Symptom>
+              <Count xsi:type="xs:int">2</Count>
+            </data>
+            <GT xsi:type="xs:int">0</GT>
+          </table>
+          <table>
+            <metadata>
+              <repdate xsi:type="xs:date">2008-04-10-06:00</repdate>
+              <reptime xsi:type="xs:time">04:36:00-06:00</reptime>
+              <startDate xsi:type="xs:date">2008-03-23-06:00</startDate>
+              <endDate xsi:type="xs:date">2008-03-23-06:00</endDate>
+            </metadata>
+            <GT xsi:type="xs:int">89</GT>
+          </table>
+        </ex:wholeFile>
+      </dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+</testSuite>

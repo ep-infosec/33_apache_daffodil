@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<tdml:testSuite
+  defaultRoundTrip="none"
+  description="TDML tests for ex_nums.dfdl.xsd"
+  xmlns:daf="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:tdml="http://www.ibm.com/xmlns/dfdl/testData">
+
+  <!--
+      Run all tests:
+
+      daffodil test -i -I daffodil ex_nums.tdml
+      daffodil test -i -I daffodilC ex_nums.tdml
+
+      Or you can debug specific steps in isolation:
+
+      daffodil parse -s ex_nums.dfdl.xsd -o ex_nums.dat.xml ex_nums.dat
+      daffodil unparse -s ex_nums.dfdl.xsd -o ex_nums.dat ex_nums.dat.xml
+
+      daffodil generate c -s ex_nums.dfdl.xsd && cd c && make
+      c/daffodil parse -o ex_nums.dat.xml ex_nums.dat
+      c/daffodil unparse -o ex_nums.dat ex_nums.dat.xml
+  -->
+
+  <tdml:parserTestCase
+    model="ex_nums.dfdl.xsd"
+    name="ex_nums"
+    roundTrip="onePass">
+    <tdml:document>
+      <tdml:documentPart type="file">ex_nums.dat</tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset type="file">ex_nums.dat.xml</tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+
+  <!--
+      In runtime1, parse with validation="off" or "limited" reads
+      non-fixed values with no validation diagnostics, while parse
+      with validation="on" reads non-fixed values with validation
+      diagnostics
+
+      daffodil parse -s ex_nums.dfdl.xsd -o /dev/null -V off ex_nums.error.dat
+      daffodil parse -s ex_nums.dfdl.xsd -o /dev/null -V limited ex_nums.error.dat
+      daffodil parse -s ex_nums.dfdl.xsd -o /dev/null -V on ex_nums.error.dat
+  -->
+
+  <tdml:parserTestCase
+    implementations="daffodil"
+    model="ex_nums.dfdl.xsd"
+    name="runtime1_error_limited"
+    validation="limited">
+    <tdml:document>
+      <tdml:documentPart type="file">ex_nums.error.dat</tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset type="file">ex_nums.error.dat.xml</tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+
+  <tdml:parserTestCase
+    model="ex_nums.dfdl.xsd"
+    name="runtime1_error_on"
+    validation="on">
+    <tdml:document>
+      <tdml:documentPart type="file">ex_nums.error.dat</tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset type="file">ex_nums.error.dat.xml</tdml:dfdlInfoset>
+    </tdml:infoset>
+    <tdml:validationErrors>
+      <tdml:error>value</tdml:error>
+      <tdml:error>boolean_false</tdml:error>
+      <tdml:error>does not match</tdml:error>
+    </tdml:validationErrors>
+  </tdml:parserTestCase>
+
+  <!--
+      In runtime1, unparse writes non-fixed values with no error or
+      validation diagnostics regardless of validation setting
+
+      daffodil unparse -s ex_nums.dfdl.xsd -o /dev/null -V off ex_nums.error.dat.xml
+      daffodil unparse -s ex_nums.dfdl.xsd -o /dev/null -V limited ex_nums.error.dat.xml
+      daffodil unparse -s ex_nums.dfdl.xsd -o /dev/null -V on ex_nums.error.dat.xml
+  -->
+
+  <tdml:unparserTestCase
+    implementations="daffodil"
+    model="ex_nums.dfdl.xsd"
+    name="runtime1_error_unparse">
+    <tdml:infoset>
+      <tdml:dfdlInfoset type="file">ex_nums.error.dat.xml</tdml:dfdlInfoset>
+    </tdml:infoset>
+    <tdml:document>
+      <tdml:documentPart type="file">ex_nums.error.dat</tdml:documentPart>
+    </tdml:document>
+  </tdml:unparserTestCase>
+
+  <!--
+      In runtime2, parse always reads non-fixed values with validation
+      diagnostics (parse doesn't even have a validation option, but
+      test must pass validation="on" so TDMLRunner can expect errors)
+
+      c/daffodil parse -o c/ex_nums.error.dat.xml ex_nums.error.dat
+  -->
+
+  <tdml:parserTestCase
+    implementations="daffodilC"
+    model="ex_nums.dfdl.xsd"
+    name="runtime2_error_parse"
+    validation="on">
+    <tdml:document>
+      <tdml:documentPart type="file">ex_nums.error.dat</tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset type="file">ex_nums.error.dat.xml</tdml:dfdlInfoset>
+    </tdml:infoset>
+    <tdml:validationErrors>
+      <tdml:error>value</tdml:error>
+      <tdml:error>boolean_false</tdml:error>
+      <tdml:error>does not match</tdml:error>
+      <tdml:error>fixed</tdml:error>
+      <tdml:error>attribute</tdml:error>
+
+      <tdml:error>value</tdml:error>
+      <tdml:error>boolean_true</tdml:error>
+      <tdml:error>does not match</tdml:error>
+      <tdml:error>fixed</tdml:error>
+      <tdml:error>attribute</tdml:error>
+
+      <tdml:error>value</tdml:error>
+      <tdml:error>float_1_5</tdml:error>
+      <tdml:error>does not match</tdml:error>
+      <tdml:error>fixed</tdml:error>
+      <tdml:error>attribute</tdml:error>
+
+      <tdml:error>value</tdml:error>
+      <tdml:error>int_32</tdml:error>
+      <tdml:error>does not match</tdml:error>
+      <tdml:error>fixed</tdml:error>
+      <tdml:error>attribute</tdml:error>
+
+      <tdml:error>value</tdml:error>
+      <tdml:error>hexBinary_deadbeef</tdml:error>
+      <tdml:error>does not match</tdml:error>
+      <tdml:error>fixed</tdml:error>
+      <tdml:error>attribute</tdml:error>
+
+      <tdml:error>value</tdml:error>
+      <tdml:error>hexBinaryPrefixed_ab</tdml:error>
+      <tdml:error>does not match</tdml:error>
+      <tdml:error>fixed</tdml:error>
+      <tdml:error>attribute</tdml:error>
+    </tdml:validationErrors>
+  </tdml:parserTestCase>
+
+  <!--
+      In runtime2, unparse always writes non-fixed values with error
+      diagnostics (unparse doesn't even have a validation option)
+
+      c/daffodil unparse -o c/ex_nums.error.dat ex_nums.error.dat.xml
+  -->
+
+  <tdml:unparserTestCase
+    implementations="daffodilC"
+    model="ex_nums.dfdl.xsd"
+    name="runtime2_error_unparse">
+    <tdml:infoset>
+      <tdml:dfdlInfoset type="file">ex_nums.error.dat.xml</tdml:dfdlInfoset>
+    </tdml:infoset>
+    <tdml:document>
+      <tdml:documentPart type="file">ex_nums.error.dat</tdml:documentPart>
+    </tdml:document>
+    <tdml:errors>
+      <tdml:error>value</tdml:error>
+      <tdml:error>boolean_false</tdml:error>
+      <tdml:error>does not match</tdml:error>
+    </tdml:errors>
+  </tdml:unparserTestCase>
+
+</tdml:testSuite>

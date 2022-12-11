@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://example.com"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tns="http://example.com">
+
+  <include schemaLocation="org/apache/daffodil/xsd/DFDLGeneralFormat.dfdl.xsd"/>
+
+  <annotation>
+    <appinfo source="http://www.ogf.org/dfdl/">
+      <dfdl:format ref="tns:GeneralFormat" lengthKind="delimited" separator=""
+        leadingSkip='0' encoding="US-ASCII" ignoreCase='no' initiator=""
+        terminator="" initiatedContent="no" textNumberRep="standard"
+        separatorSuppressionPolicy="anyEmpty" separatorPosition="infix"
+        byteOrder="bigEndian" binaryNumberRep="binary"
+        alignment="implicit" alignmentUnits="bytes" trailingSkip="0"
+        representation="text" dfdlx:parseUnparsePolicy="parseOnly"/>
+    </appinfo>
+  </annotation>
+  <!-- MIME type detect -->
+
+  <group name="arrayGroup">
+    <sequence>
+      <element name="array" type="xsd:unsignedByte" maxOccurs="unbounded" dfdl:occursCountKind='implicit'
+        dfdl:representation="binary" dfdl:lengthKind="implicit" /> <!-- unsignedByte because it is compared with numbers > 127 -->
+    </sequence>
+  </group>
+
+  <element name="mimeType">
+    <complexType>
+      <sequence>
+        <sequence dfdl:hiddenGroupRef="tns:arrayGroup" />
+        <element name="mime">
+          <complexType>
+            <choice>
+              <!-- GIF -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'image/gif' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[2] eq 71 and
+                      ../../array[1] eq 73 and
+                      ../../array[4] eq 70 and
+                      ../../array[3] eq 56 and
+                      ../../array[6] eq 57 and
+                      ../../array[5] eq 97
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- JPEG -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'image/jpeg' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[8] eq 74 and
+                      ../../array[7] eq 70 and
+                      ../../array[10] eq 73 and
+                      ../../array[9] eq 70
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- STP -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'STP' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 73 and
+                      ../../array[2] eq 83 and
+                      ../../array[3] eq 79 and
+                      ../../array[4] eq 45 and
+                      ../../array[5] eq 49 and
+                      ../../array[6] eq 48 and
+                      ../../array[7] eq 51 and
+                      ../../array[8] eq 48 and
+                      ../../array[9] eq 51 and
+                      ../../array[10] eq 45 and
+                      ../../array[11] eq 50 and
+                      ../../array[12] eq 49 and
+                      ../../array[13] eq 59
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- PNG -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'image/png' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 137 and
+                      ../../array[2] eq 80 and
+                      ../../array[3] eq 78 and
+                      ../../array[4] eq 71 and
+                      ../../array[5] eq 13 and
+                      ../../array[6] eq 10 and
+                      ../../array[7] eq 26 and
+                      ../../array[8] eq 10
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- .class -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'application/java-byte-code' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 202 and
+                      ../../array[2] eq 254 and
+                      ../../array[3] eq 186 and
+                      ../../array[4] eq 190
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- midi -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'audio/midi' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 77 and
+                      ../../array[2] eq 84 and
+                      ../../array[3] eq 104 and
+                      ../../array[4] eq 100
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- shell script -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'application/x-sh' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 35 and
+                      ../../array[2] eq 33
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- postscript -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'application/postscript' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 37 and
+                      ../../array[2] eq 33
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- PDF -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'application/pdf' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 37 and
+                      ../../array[2] eq 80 and
+                      ../../array[3] eq 68 and
+                      ../../array[4] eq 70
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- ZIP -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'application/zip' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 80 and
+                      ../../array[2] eq 75
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- MPEG -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'video/mpg' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 0 and
+                      ../../array[2] eq 0 and
+                      ../../array[3] eq 0 and
+                      ../../array[4] eq 24 and
+                      ../../array[5] eq 102 and
+                      ../../array[6] eq 116 and
+                      ../../array[7] eq 121 and
+                      ../../array[8] eq 112 and
+                      ../../array[9] eq 51 and
+                      ../../array[10] eq 103 and
+                      ../../array[11] eq 112 and
+                      ../../array[12] eq 53
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+              <!-- GZIP -->
+              <sequence>
+              <element name="type" type="xsd:string"
+                dfdl:inputValueCalc="{ 'application/x-gzip' }">
+                <annotation>
+                  <appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{
+                      ../../array[1] eq 31 and
+                      ../../array[2] eq 140 and
+                      ../../array[3] eq 8
+                      }</dfdl:discriminator>
+                  </appinfo>
+                </annotation>
+              </element>
+              </sequence>
+            </choice>
+          </complexType>
+        </element>
+      </sequence>
+    </complexType>
+  </element>
+</schema>

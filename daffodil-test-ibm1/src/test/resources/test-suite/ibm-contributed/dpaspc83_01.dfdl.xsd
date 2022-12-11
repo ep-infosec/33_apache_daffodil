@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+  Portions of this schema taken from examples in Data Format Description Language (DFDL) v1.0 Specification
+  Copyright (C) Open Grid Forum (2005-2014).  Some Rights Reserved.
+  https://www.ogf.org/ogf/doku.php/about/copyright
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+	xmlns:cal="http://www.saf.cal/" elementFormDefault="qualified">
+	
+	<!--
+		added all the namespace stuff to schema tag added textNumber format
+		number of properties needed to be defaulted. quotes
+	-->
+
+	<xs:annotation>
+		<xs:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:format initiator="" terminator="" leadingSkip="0" trailingSkip="0" 
+				truncateSpecifiedLengthString="no"  separator="" separatorSuppressionPolicy="trailingEmpty"
+				textBidi="no" floating="no"   encodingErrorPolicy="error" encoding="ASCII" representation="text"
+				byteOrder="bigEndian" bitOrder="mostSignificantBitFirst" initiatedContent="no" sequenceKind="ordered"
+				ignoreCase="no" textPadKind="none" textTrimKind="none"
+				textStringJustification="right" textStandardBase="10"
+				textNumberJustification="right" textNumberRep="standard" lengthKind="explicit"
+				lengthUnits="bytes" length="4" 
+				alignmentUnits="bytes" fillByte="%#r66;"  alignment="1" occursCountKind="implicit"
+				binaryNumberRep="packed" binaryPackedSignCodes="C D F C" binaryNumberCheckPolicy="strict"
+				textNumberPattern="###" textStandardGroupingSeparator="," textOutputMinLength="0"
+				textStandardDecimalSeparator="." textStandardExponentRep="E"
+				textNumberCheckPolicy="lax" textStandardInfinityRep="~"
+				textStandardNaNRep="z" textNumberRoundingMode="roundHalfDown"
+				textStandardZeroRep="" textZonedSignStyle="asciiStandard" escapeSchemeRef="" />
+		</xs:appinfo>
+	</xs:annotation>
+
+	<!-- this starts the actual snippet example -->
+	<xs:simpleType name="newType">
+		<xs:annotation>
+			<xs:appinfo source="http://www.ogf.org/dfdl/">
+				<dfdl:simpleType alignment="16" />
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="10" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="testElement1" type="newType">
+		<xs:annotation>
+			<xs:appinfo source="http://www.ogf.org/dfdl/">
+				<dfdl:element representation="binary" />
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+  
+  <!--  this group is what we parse - to confirm we are getting correct alignment, use an array of 2 elements -->
+
+  <xs:element name="groupElem" dfdl:lengthKind="implicit" dfdl:alignment="implicit">
+					<xs:complexType>
+						<xs:sequence dfdl:alignment="implicit"  >
+							<xs:element ref="testElement1"  minOccurs="2" maxOccurs="2"/>
+							
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+
+</xs:schema>

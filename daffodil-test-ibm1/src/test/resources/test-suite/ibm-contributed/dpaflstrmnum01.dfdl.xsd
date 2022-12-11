@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+	xmlns:cal="http://www.saf.cal/" elementFormDefault="unqualified"
+	attributeFormDefault="unqualified" >
+
+
+	<xs:annotation>
+		<xs:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:format initiator="" terminator="" leadingSkip="0" 
+				trailingSkip="0" truncateSpecifiedLengthString="no"  textBidi="no" 
+				floating="no"  encodingErrorPolicy="error"  encoding="UTF-8" 
+				ignoreCase="no" byteOrder="bigEndian" bitOrder="mostSignificantBitFirst"
+				lengthKind="explicit" textPadKind="padChar" textTrimKind="padChar"
+				textNumberPadCharacter="0" textStandardBase="10"
+				textNumberJustification="right" textStringPadCharacter="%SP;"
+				textStringJustification="left" lengthUnits="characters" alignmentUnits="bytes"
+				fillByte="%#r66;" alignment="1" occursCountKind="implicit" initiatedContent="no"
+				sequenceKind="ordered" textStandardGroupingSeparator=","
+				textStandardDecimalSeparator="." textStandardExponentRep="e"
+				textNumberCheckPolicy="lax" textStandardInfinityRep="~"
+				textStandardNaNRep="z" textNumberRoundingMode="roundHalfDown" textNumberRounding="pattern"
+				textStandardZeroRep="" textZonedSignStyle="asciiStandard" escapeSchemeRef=""
+                textOutputMinLength="0"/>
+		</xs:appinfo>
+	</xs:annotation>
+
+	<!--  number pattern equal to length -->
+
+	<xs:element name="Test1" type="myNumber">
+		<xs:annotation>
+			<xs:appinfo source="http://www.ogf.org/dfdl/">
+				<dfdl:element length="8" textNumberPattern="00000000" />
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+
+	<!--  number pattern not equal to length - expect padding/trimming -->
+
+	<xs:element name="Test2" type="myNumber">
+		<xs:annotation>
+			<xs:appinfo source="http://www.ogf.org/dfdl/">
+				<dfdl:element length="8" textNumberPattern="00000" />
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+
+	<!--
+		number pattern not equal to length - expect padding/trimming -
+		encoding different than schema encoding
+	-->
+
+	<xs:element name="Test3" type="myNumber">
+		<xs:annotation>
+			<xs:appinfo source="http://www.ogf.org/dfdl/">
+				<dfdl:element length="8" textNumberPattern="00000"
+					encoding="ebcdic-cp-us" />
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+
+
+
+	<xs:simpleType name="myNumber">
+		<xs:annotation>
+			<xs:appinfo source="http://www.ogf.org/dfdl/">
+				<dfdl:simpleType representation="text"
+					textNumberRep="standard" />
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer"></xs:restriction>
+	</xs:simpleType>
+
+
+</xs:schema>

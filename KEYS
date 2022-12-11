@@ -1,0 +1,351 @@
+This file contains the GPG keys of Apache Daffodil developers.
+
+Users:
+
+    gpg --import KEYS
+
+Developers:
+
+  Add some lines to your gpg.conf file:
+
+    # https://keys.openpgp.org/about/usage#gnupg
+    keyserver hkps://keys.openpgp.org
+
+    # https://infra.apache.org/openpgp.html#sha-defaults
+    personal-digest-preferences SHA512
+    cert-digest-algo SHA512
+    default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
+
+  Create a code signing key:
+
+    # Per https://infra.apache.org/openpgp.html#key-gen-generate-key
+    # - RSA and RSA key with keysize 4096, and no expiration
+    # - Use your apache email
+    gpg --full-generate-key
+
+  Add your key to this file:
+
+    echo >> KEYS
+    gpg --list-sigs <key id> >> KEYS
+    gpg --armor --export <key id> >> KEYS
+
+  Publish your key so you can revoke it later if necessary:
+
+    # Per https://infra.apache.org/release-signing.html#keyserver
+    # - Use OpenPGP Public Key Server
+    gpg --export <key id> > mykey.pgp
+    # Per https://keys.openpgp.org/about/faq#older-gnupg
+    # - Verify your email address when uploading your key
+    Go to https://keys.openpgp.org/upload, upload mykey.pgp, verify your email address
+
+  Additional Information:
+
+    https://infra.apache.org/openpgp.html
+    https://keys.openpgp.org/about/usage
+    https://keys.openpgp.org/about/privacy
+
+********************************* PLEASE NOTE **********************************
+
+  Releases will be signed using one of the keys in this file. This file will
+  be available with the distributed Apache Daffodil releases at:
+
+      https://dist.apache.org/repos/dist/release/daffodil/KEYS
+
+********************************************************************************
+
+pub   4096R/033AE661 2018-01-22
+uid                  Steve Lawrence <slawrence@apache.org>
+sig 3        033AE661 2018-01-22  Steve Lawrence <slawrence@apache.org>
+sub   4096R/66058329 2018-01-22
+sig          033AE661 2018-01-22  Steve Lawrence <slawrence@apache.org>
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+xb/W
+=cYZZ
+-----END PGP PUBLIC KEY BLOCK-----
+
+pub   rsa4096 2020-04-01 [SC]
+      EA0B5228201A90CD1BBCE006639637FDA8049411
+uid           [ultimate] Olabusayo Kilo <olabusayo@apache.org>
+sig 3        639637FDA8049411 2020-04-01  Olabusayo Kilo <olabusayo@apache.org>
+sub   rsa4096 2020-04-01 [E]
+sig          639637FDA8049411 2020-04-01  Olabusayo Kilo <olabusayo@apache.org>
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQINBF6E0o4BEADcAmbC6Ath6D4Qj/W8v7cLwGI8I19bCCR1wyX5hAYqE1VIFYWW
+T/YIeDzOMW0QCU4kX0rmAu55PCcyVVrwgbvN7UhvvaQIBH7O8sfB8x5cllKq2Jcr
+FxibmQaQMw81hn08M3APEHaG+dxDPjjg8EDoDdJEOBQGIpsxhvEz0kq7t44PhoGY
+qz4+55S+/eNTr1zDrg4b15TNp+rrkx9E+2lbbH3l2M1688/kgTRgNh8DNrunkq1P
+UPrHzVSI8XSdLVXNaWBwmuCR0H+E/dRUoXfjOFHBuQ4lEDFIEl7OPUDsopiMjHCm
+sEe3k1zcTWNz4PDNzKhsEuHs2B2wqTNTo37Tf1kQEuEoGKh5Jje5kzpt97PTKkvk
+f4cJOVOdUdHCPgtYvtvsmgD76UrHrYiRW/r5g/XVKS5oBcTiRBQF1TmPr3ESPB4P
+x3WbBJdQe3xSnSxbLG8beQ4OTakg0cL3rCWmdLzxs0/JfGh19GdRkalG8UvgHv0n
+ecQR9UYDXmFzd+LB5alD4dQ+SCIrfZxEg34NC833z5xPARtR6CCGEX+cdgPhZX5W
+f6uWL7UAJI6AseZpuvEAWnhbCm4qjttSM1AD3J2YRTfvO4phyDlhsCWvN4tX2ZXK
+9KtUHAC3zkdympTq7Rp2zTcWOUJltmJ7OGmJQcU+xoIoh98AGiT7lryNwwARAQAB
+tCVPbGFidXNheW8gS2lsbyA8b2xhYnVzYXlvQGFwYWNoZS5vcmc+iQJOBBMBCAA4
+FiEE6gtSKCAakM0bvOAGY5Y3/agElBEFAl6E0o4CGwMFCwkIBwIGFQoJCAsCBBYC
+AwECHgECF4AACgkQY5Y3/agElBFI6w/7BV74Ul7IIopylaRew54as3wOSNfglIUG
+0Tc0BJ+smmXM8VsMvRAK4c3qmDZmQwHd4+wvOch0mRfk9eGm87Cqw7ahVgOVa638
+zGVzE+ezCGa3iqTufi8l+i/a+039laS2WllmpWYZU+2H5vD3G3j8YLNg0GuHUL1D
+fLInV89BOL01RFAlK3HQ4EPe/7RrMoEkcyCaJuwsu/ZHmp+5uscjBp2y8R++pYuH
+TajdXpLQ46icTDOGYCW+WV46cR707XgceCAUS27ICoEFmH0F8FHF62BUxB/4apY2
+MaHkDdnxfJCLbxEJxWMsVlS9ae5xrfCaaNv7lTMTP/Tnfhf2HHgssDu6nNIb2cHk
+uSQS6YcQtPaY9/wG4lG0Xej9dscooQCJcy0+PtAcZCBiMdATZV75E6cULlZfECcr
+3fxXEprgfQFcLU2pm6x61sCyfY3YT4hDmty9kJTL847Ti7l37UyNb6n05TPZd8ap
+cU1dZD70m05Aijibj18h9dre5WEejikT50RrvRzeUkQFC/AiAuk+jrVbuRj8Ld/6
+KUFo9ySJqPyKc56tofPcBabqvIZQz2iYDIpFy2W20OnarEqdUiI+R5WN6FZDIwKp
+FybLtNLoDrCHchJz8ylby5DTupvY/IRf1pDdEdHy6WF2t8eWAW+Ic5VhmdlK0yUQ
+KECMUCzildW5Ag0EXoTSjgEQAOe8KVf0JF7ybiynA1YNiwTbA5qHlQm0xe23X0p9
+FM8xwR6YxHslzaRajuy6nWn8niQc6wF1A/HW+Q3jGUjXkKVuFE12btFbZOZQcf4J
+L6+1qrcH3NBk8ojOoReIuv8eLfxRIVoI0wsXUClbztKPqbhu5DGfRiSXEfh5/04B
+El5pK+IEnX/pHdI/nxI4c8xngsl0bjV+Sek4tCSo6F2zEHWImhNizmk5Dt6qyS+v
+Ny4x0Eu//7ieTtvyG7vNFlOGMfVli07aZtHgg+KWx1vnBncjx+zenarskNTXlS+4
+0gMsiQN0Au7zUIk74lEY0gjTtuktExg4uO/stVB35y0pHS1fnaPvjRZSclvU0LYu
+jJCZOJW1nmFIn0DOqN+GtNMguYa/gS82rKivMeCaSpVCvpdQm+BjyG3sP55rBtSQ
+77L6rdw4sPMBe7JaHkApg44fN3yjjChk5wyCZ5fHAPooBotUO8Ypit9D88QohVii
+3MIwQ30oXLBQlNfTi95CBlGOICc63l0TbmZapm0LfMto7IA5eMutd+Vx3s/esdgD
+Phi5YCIFSVhlmZ9H3ADlyJUaA/2dH61FNk6AnIOaIZ5+wMsNfHoEqPSLOMbEiyZb
+lv1nuDXqbaPy2mGpZWZZYpHabDab8cgvS/qnkjJq7zkoOqsOBQiT9NodgO/LacRf
+7v67ABEBAAGJAjYEGAEIACAWIQTqC1IoIBqQzRu84AZjljf9qASUEQUCXoTSjgIb
+DAAKCRBjljf9qASUEUgdEACx8lCgo7fFGHxMmqI00XE3IHFgqvNV8C0nSdQY0iWb
+osX+/UFbTsSjf1PtpnBivHyPbS3Lp8LNEEMLpmWY/Cst0BJjvFhxA3UkJGo15FW7
+BZ45osxDFfdlcjkFEc2C5KdIF+ew91x5SISKqdAy/i/XlQ89ucyVHDCKAjzqd4sH
+P3M0hcxuL4cfZoitqEKg0p5cjWgyazV/62fSuWnBq0Kx4m+EuHEJ7SQVSILoGVGa
+RJxQBWcw4RNcQWDCOlFIZtUfVjguAReOW6XOtglXiosBJHWyT9ytnrZFs5g7FmCn
+sXoNG4jG2huWHpyPDGKxrC4mmIW1WBEy2aRT6/VoLcQsr/evXVXGFfkQb5LdsEVH
+6rNSRfkPvt7Tc2NeRcYOCy2fAGEmszNBxWO+2dk8Dr8wPxaD8ZwlsdgGWXVYE+lB
+AaYphVjb0HtLj/HqEa3huHHtbZLyU8LJvXO4+pwzMhCtu6rZqVYmv3XblDvh2bKv
+pW3xWY/Sqkk8N3Kdf2HcTFQTYThG+78+jOZ285M757RQeoVQmEZRMk4rbAL365Li
+qJMAJH6vTUPJfGH3DEZ0bAnerivZZUqmwCq6phifMxIWsD5uUWlaa7HUHA9hnS6v
+KZd9BT4L/Legj/Z5RsN4j9dNfNOsYTVMw4Mk0VnUq7X1UxV1k9WbTyUm/ldRwPcf
+fA==
+=Grso
+-----END PGP PUBLIC KEY BLOCK-----
+
+pub   rsa4096 2021-10-12 [SC]
+      85849EC0374262C7110CA74404A735FC1A36AE84
+uid           [ultimate] John Interrante (Code Signing Key) <jinterrante@apache.org>
+sig 3        04A735FC1A36AE84 2021-10-12  John Interrante (Code Signing Key) <jinterrante@apache.org>
+sub   rsa4096 2021-10-12 [E]
+sig          04A735FC1A36AE84 2021-10-12  John Interrante (Code Signing Key) <jinterrante@apache.org>
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+DPh7WksEmrAvbFk5HLWlENsXIoig2Tc=
+=qmBp
+-----END PGP PUBLIC KEY BLOCK-----
+
+pub   rsa4096 2022-03-02 [SC]
+      86DDE7B41291E380237934F007570D3ADC76D51B
+uid           [ultimate] Shane Dell <shanedell@apache.org>
+sig 3        07570D3ADC76D51B 2022-03-02  Shane Dell <shanedell@apache.org>
+sub   rsa4096 2022-03-02 [E]
+sig          07570D3ADC76D51B 2022-03-02  Shane Dell <shanedell@apache.org>
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQINBGIf0NoBEACu76x+4Rg7rrnlI1grElbVQjQAgCvQCASAeb2zxGBRrfSEY7Kb
+hkaeztM2V7eF1HHyRHQ+1tS4u1eWsnskttx37FkoB6GoHVvgIXX2h+9b8OU/6j7R
+NHQwEeXxp6Igyc7hFYGQ+/KAErDDrm+QTE2ThkyFu2n2DTzi4FOheDZ29cA9Dweb
+1HTD1lnzKy/UqanhOMta7qJBwayoEB457nW8qnU1giSNl85Owx3QbPPI6hKbUREa
+ULh1g2K8E5tcs/C5sZNWVJHNMPXq0saV6+tbOnB2sYFLcNEZsonHDmjVRHg+1Dll
+T5CNKJ1EWR2yUFt5n2d0mAvdxnNo2pJX0h3EoeHpYJp3/hhuWxq+2Kw3yBPZuYFo
+ggJV/BWZC98/3v73xLA4pSqDzQNUAzj2g/ElWRMJ3+6lPN9z1EDiYscF0CSt7MHR
+vYPWIr6Xvrcp9S+nGxaq5blse1Fw/g2FfyT4/M5HDdOXo98ui9JngPDs07oVKZvj
+4pVsWNdRQ9LcD7JMFAkFk2k0SrQ34ddHm+iO0J/WdiN4dz2XEcjopFUcRX0zFV2E
+AysOtE5w1ayW3eysiB6hb0maxkJ8181v2AkEPDfPKcEQ/UarUX2YjPh07FrDmng1
+jSDY+stvScUsm1PaiUGrWjyiMeeCpIB9LEgo3DTdAFZvXaJbpniRSc8HaQARAQAB
+tCFTaGFuZSBEZWxsIDxzaGFuZWRlbGxAYXBhY2hlLm9yZz6JAk4EEwEKADgWIQSG
+3ee0EpHjgCN5NPAHVw063HbVGwUCYh/Q2gIbAwULCQgHAwUVCgkICwUWAgMBAAIe
+BQIXgAAKCRAHVw063HbVGxFND/9LxlnXtJN4UZut6aQKESGKzsU6wKPiNoGDJTBb
+65OoM5RIy9gWePfjf0Lnb3RsrYa7FbBXjmBEZ7kBCGFTCYB7XYy4SeaWRNzLuLTf
+qPFdlq8HDZ8aKjvlv+5HYAm5SJ7CdxYg18tqyiAXeJ0QaU4xfwEfJ7aK/8TUlmCS
+Mm/1tIsiIvBooUMMFha3c3cYag6GEyMWktzlAK9kX1csfJEySrK2uDMjtAFBAMtJ
+4hEbDQ36pCxd9MBrIOKM7u38r3yYlQld9vwrzwL9ST6f4UNyjwcXQ1ux3ETbM33z
+YBFTTI6SVZAlXbr17AW07A2YRnXmCLFrNIFruc9ICinvzV3CHyUVf3GejmKSAmyS
+9NA8pVQAGe65zKYKrZVMTbQAmJ8x9TToTnqDJVEusrgdPjn02QpF+y4bFN5xTg0t
+TWVPJ2hJGp6J4Z339cUQTbKnxjf2WbMn9UDIa5EVmn4R3+rJmkDgGWRLO+RjqT83
+ShBgp7Z77kX3NLo9IeTz0k1eNUFWDdw9gCcHIweKj5vDVujadVouPqvgLki9pw1K
+LfaL4VfwhEB+5KjfthNFrNzrsrY6wtNjgUi1kCNCxxue4JSwHt3lh0uWEymHa10S
+9D2q2TH3uF83BQ3Gl8WGoBLjTfxdu8H+1rDi5ew9LyHjrNc1dfFllwEyj2XbTmZK
+2c5xIbkCDQRiH9DaARAA4QArPOAiczCRrt1BYLBoa93QWeK+zfMGOQROs93GRt2s
+SZAAEz3XdqRW7VWhrGXTPGmZDeDhCKBhDlaAr0edbVztQs8oOni25NZp7Bp5DZ9s
+XEIy+z+RQunQxNHFMHFA8Xz6CgWer6psTZGMeMtpyR4F76F+jW1CdlQV0qbokrnP
+RNQVTw5FT/QhywlrGAH2kbPQMdFxk4tUvwTJpgYf0k8EYA+QJmmjT84Cu1UpmzR5
+r8SGYYmfjZTmwaRL3i0EcgpIBs9605p4wS49GVBhBqOnSFLvQsYFHTk0CTPZLcj5
+lOa4jENzYkWSh0vee+1ebgiXlMSARPodPu4OwPBxPLiSCLTApNwccTW/x0xo9AkY
+M2bd6OIH35L4BtMWcsStRRGQ2SRL6TUYrpnp1vvQwvvyDpakiPhTSJGBxrPgvVBE
+DVVFbbICcFwBeufhtd7y1RTSYGpqwvyrempLkan33JYdAbjxkF10/d2klwf0XSpN
+s55nB7NnJl08jHGDf3Yir2MO+gXpmCMO1GQPx1ayfcV53DKYqnLE/kioWE3XXShz
+aGCFISPnmpuCZH0RUJqjSxYCNAaD1OYsAjtOJ6SYfnwtdo23V/ygfi78iQaO3BbI
+X/rVzsitg2McbsKJZpHRf223KcZbKKIuTnA2HImTc1h3A5A89lAVaBoZHuerIaEA
+EQEAAYkCNgQYAQoAIBYhBIbd57QSkeOAI3k08AdXDTrcdtUbBQJiH9DaAhsMAAoJ
+EAdXDTrcdtUbCVcP/jurNWlyH4y3kFoFGAOj/CPLZ/QL5A06GwASjE8HDWYpTTRX
+n7MzLB63OshcOtxD4CyX+25mf8MZeNPNIfFKY7nVcoemlOI91xJIEmyXQbfxDloo
+oiyvVeCDh+v8+sEB3+coWwoEabr93n34IUC0ZFNJD1grQGPIMrBzCXB58DwhCiJm
+uPA/Y6VwSQgQ3yGkptVl6TaFjnxkiKxL1VX8IP0/BH3sf8bsEDtpi2+mZ+SCN/O8
+mAPT2ch33xuNEY0SdK1luE1Oq1YGHPvqAs21kWCiWzhT0Y4KWhMDMB9jg13QlrMH
+Bo48ujxaTKGSTvwSE/wMK3YcBvABdD+2ISE+bmL9KqougVOolpuho9eK2Ta2iT4z
+LcjtO4ikDZpIYKY9TcYRM9xGpuda7wY9PUU0ArK5YWXQxs5kLwLUD1yd8VKr6kia
+RTzFWY+x739pwxLMz2UENCf3sCBKEplnozh6kEJHAHht3Sqtp177O4pPuVESiupg
+X5WQlPJWmeQXvzaxiV2aifURJn/mfaOk1Q30XjggI2Y00d3BwDGgk+U3a/zIxrMB
+pYCpQC9lFM5Y9no7tOk/DIU/qdwtXf6CfYIfEqWy9xtDB9aKMPHPxqgMUg8D5WxV
+pl2BFFD5Yk5CN6T3GPOOQmU+bd9U3RXEHYIZU6869M67qXwd9GdSl2pkq72h
+=6KN5
+-----END PGP PUBLIC KEY BLOCK-----
+
+pub   rsa4096 2022-09-09 [SC]
+      DB59C93B3D71BEBB537F325DD87AD4BD985035CD
+uid           [ultimate] Michael J. Beckerle <mbeckerle@apache.org>
+sig 3        D87AD4BD985035CD 2022-09-09  Michael J. Beckerle <mbeckerle@apache.org>
+sub   rsa4096 2022-09-09 [E]
+sig          D87AD4BD985035CD 2022-09-09  Michael J. Beckerle <mbeckerle@apache.org>
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+8K9t38Ay
+=soZV
+-----END PGP PUBLIC KEY BLOCK-----

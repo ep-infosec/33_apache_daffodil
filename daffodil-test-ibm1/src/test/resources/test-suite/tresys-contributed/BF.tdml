@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<testSuite suiteName="BF" xmlns="http://www.ibm.com/xmlns/dfdl/testData"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:ex="http://example.com"
+  defaultImplementations="ibm daffodil">
+
+  <parserTestCase name="BF000" root="root" model="BF.dfdl.xsd"
+    description="Unordered sequences">
+    <document><![CDATA[Y:y0
+Y:y1
+Y:y2
+Y:y3
+X:x0
+X:x1
+X:x2
+X:x3
+]]></document>
+    <infoset>
+      <dfdlInfoset>
+        <ex:root>
+          <seq>
+            <x>x0</x>
+            <x>x1</x>
+            <x>x2</x>
+            <x>x3</x>
+            <y>y0</y>
+            <y>y1</y>
+            <y>y2</y>
+            <y>y3</y>
+          </seq>
+        </ex:root>
+      </dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <parserTestCase name="BF001" root="root" model="BF.dfdl.xsd"
+    description="Unordered sequences" validation="limited">
+    <document><![CDATA[Y:y0
+Y:y1
+Y:y2
+Y:y3
+Y:y4
+X:x1
+X:x2
+X:x3
+X:beyond
+]]></document>
+    <infoset>
+      <dfdlInfoset>
+        <ex:root>
+          <seq>
+            <x>x1</x>
+            <x>x2</x>
+            <x>x3</x>
+            <x>beyond</x>
+            <y>y0</y>
+            <y>y1</y>
+            <y>y2</y>
+            <y>y3</y>
+            <y>y4</y>
+          </seq>
+        </ex:root>
+      </dfdlInfoset>
+    </infoset>
+    <validationErrors>
+      <error>Validation Error</error>
+      <error>{}y</error>
+      <error>minOccurs='2'</error>
+      <error>maxOccurs='4'</error>
+      <error>5</error>
+    </validationErrors>
+  </parserTestCase>
+</testSuite>

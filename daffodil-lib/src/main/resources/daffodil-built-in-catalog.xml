@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" >
+  <!-- 
+   It would be good to not have this xmlns in here, because eclipse 
+   shows validation errors having to do with the publicId of XMLSchema.dtd
+   not obeying the pattern.
+    -->
+  <uri name="http://www.ibm.com/xmlns/dfdl/testData"
+	  uri="org/apache/daffodil/xsd/tdml.xsd" />
+  <uri name="http://www.ogf.org/dfdl/dfdl-1.0/" uri="org/apache/daffodil/xsd/DFDL_part3_model.xsd" />
+  <uri name="http://www.ogf.org/dfdl/dfdl-1.0/extensions" uri="org/apache/daffodil/xsd/dfdlx.xsd" />
+ <!-- <uri name="http://www.ogf.org/dfdl/dfdl-1.0/XMLSchemaSubset"
+    uri="org/apache/daffodil/xsd/DFDLSubsetOfXMLSchema_v1_036.xsd" /> -->
+  <uri name="http://www.w3.org/2001/XMLSchema"
+	  uri="org/apache/daffodil/xsd/XMLSchema_for_DFDL.xsd" />
+  <uri name="http://www.w3.org/XML/1998/namespace"
+	  uri="org/apache/daffodil/xsd/xml.xsd" />
+ <!-- 
+   Seems the format of catalogs doesn't allow spaces in the publicId.
+   I don't know if one can replace them with escape %20 stuff or not.
+ <public publicId="-//W3C//DTD XMLSCHEMA 200102//EN"
+    uri="org/apache/daffodil/xsd/XMLSchema.dtd" /> -->
+  <public publicId="datatypes"
+	  uri="org/apache/daffodil/xsd/datatypes.dtd" />
+  <uri name="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:int"
+	  uri="org/apache/daffodil/xsd/dafint.xsd"/>
+  <uri name="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"
+	  uri="org/apache/daffodil/xsd/dafext.xsd"/>
+</catalog>

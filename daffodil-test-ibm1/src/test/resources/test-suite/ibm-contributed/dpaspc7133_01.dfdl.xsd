@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+  Portions of this schema taken from examples in Data Format Description Language (DFDL) v1.0 Specification
+  Copyright (C) Open Grid Forum (2005-2014).  Some Rights Reserved.
+  https://www.ogf.org/ogf/doku.php/about/copyright
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+	xmlns:cal="http://www.saf.cal/" elementFormDefault="unqualified"
+	attributeFormDefault="unqualified" >
+
+	<xs:include schemaLocation="org/apache/daffodil/xsd/DFDLGeneralFormat.dfdl.xsd"/>
+	 
+	<!--
+		"another example" of short form in section 7.1.4.3 dfdl spec v.39
+	-->
+
+
+	<xs:annotation>
+		<!-- Defaulted property values minimum needed for a text boolean-->
+		<xs:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:format ref="GeneralFormat" initiator="" terminator="" 
+				leadingSkip="0" trailingSkip="0" truncateSpecifiedLengthString="no"  
+				textBidi="no" floating="no"
+				encoding="utf-8" 
+				byteOrder="bigEndian" bitOrder="mostSignificantBitFirst"
+				alignment="1" alignmentUnits="bytes" fillByte="f" occursCountKind="implicit"
+				lengthUnits="bytes" initiatedContent="no"
+				sequenceKind="ordered" ignoreCase="no" textPadKind="none"
+				textTrimKind="none" textStandardBase="10" textNumberJustification="right"
+				separatorPosition="infix" separatorSuppressionPolicy="never"
+				escapeSchemeRef="" lengthKind="delimited"
+				documentFinalTerminatorCanBeMissing="yes" textNumberRep="standard"
+				nilValueDelimiterPolicy="both" textNumberPattern="#"
+				textNumberCheckPolicy="lax" textStandardGroupingSeparator=","
+				textNumberRoundingMode="roundFloor" textStandardZeroRep=""
+				textNumberRounding="pattern"
+        encodingErrorPolicy="error" />
+
+
+		</xs:appinfo>
+	</xs:annotation>
+
+
+	<!--
+		all before this point had to add to make complete schema inserted
+		element here for ... in snippet
+	-->
+
+	<xs:element name="foo">
+		<xs:complexType>
+			<xs:sequence dfdl:separator="%HT;">
+				<xs:element name="element1" type="xs:int"
+					dfdl:representation="text" dfdl:textNumberRep="standard" />
+				<xs:element name="element2" type="xs:int"
+					dfdl:representation="text" dfdl:textNumberRep="standard" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

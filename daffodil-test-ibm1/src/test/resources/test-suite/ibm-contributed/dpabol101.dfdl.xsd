@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" elementFormDefault="qualified" attributeFormDefault="unqualified" >
+
+  <!-- Test two fixed length boolean elements.  -->
+
+ 
+    <xs:annotation>
+		<xs:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:format initiator="" terminator="" leadingSkip="0" trailingSkip="0" truncateSpecifiedLengthString="no"  separator="" textBidi="no" floating="no"   ref="booleanText" escapeSchemeRef=""
+				encodingErrorPolicy="error" encoding="utf-8" byteOrder="bigEndian" lengthUnits="characters"
+				textOutputMinLength="1" alignment="1" alignmentUnits="bytes"
+				fillByte="f"  occursCountKind="implicit" ignoreCase="no" separatorSuppressionPolicy="trailingEmpty"
+				lengthKind="delimited" sequenceKind="ordered" initiatedContent="no" />
+
+		</xs:appinfo>
+	</xs:annotation>
+	
+	<xs:annotation>
+		<xs:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:defineFormat name="booleanText">
+   				<dfdl:format textPadKind="none" textTrimKind="none" textBooleanPadCharacter="0" representation="text"/>
+			</dfdl:defineFormat>
+		</xs:appinfo>
+	</xs:annotation>
+
+	<xs:element name="boolean1"  dfdl:lengthKind="implicit">
+		<xs:complexType>
+		  <xs:sequence dfdl:sequenceKind="ordered" dfdl:initiatedContent="no">
+                    <xs:element name="MyBoolean1"  type="xs:boolean" minOccurs="2" maxOccurs="2" 
+                      dfdl:representation="text" 
+                      dfdl:lengthUnits="bytes" 
+                      dfdl:length="5" 
+                      dfdl:lengthKind="explicit"
+                      dfdl:textBooleanTrueRep="true%SP;"
+                      dfdl:textBooleanFalseRep="false">
+                    </xs:element>
+		   </xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="boolean2"  dfdl:lengthKind="implicit">
+		<xs:complexType>
+		  <xs:sequence  dfdl:sequenceKind="ordered" dfdl:initiatedContent="no">
+                    <xs:element name="MyBoolean2"  type="xs:boolean" minOccurs="2" maxOccurs="2" 
+                      dfdl:representation="text" 
+                      dfdl:lengthUnits="bytes" 
+                      dfdl:length="1" 
+                      dfdl:lengthKind="explicit"
+                      dfdl:textBooleanTrueRep="1"
+                      dfdl:textBooleanFalseRep="0">
+                    </xs:element>
+		  </xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="boolean3"  dfdl:lengthKind="implicit">
+		<xs:complexType>
+		  <xs:sequence  dfdl:sequenceKind="ordered" dfdl:initiatedContent="no">
+                    <xs:element name="MyBoolean3" type="xs:boolean" minOccurs="2" maxOccurs="2" 
+                      dfdl:representation="text" 
+                      dfdl:lengthUnits="bytes" 
+                      dfdl:lengthKind="explicit"
+                      dfdl:length="4"
+                      dfdl:textBooleanTrueRep="true"
+                      dfdl:textBooleanFalseRep="nope">
+                    </xs:element>
+		  </xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	     
+	    <!-- parse same as unparse - Tx*xFx*xxxF --> 
+	    <!-- parse different than unparse - T*xxFxx*xxxxxxxxxxxxxxxxxxxF -->
+		<xs:element name="boolean_group" dfdl:lengthKind="delimited">
+		<xs:complexType>
+			<xs:sequence dfdl:separatorSuppressionPolicy="never"
+				dfdl:separatorPosition="infix" dfdl:separator="*">
+				<!--  use space for separator, and show grouping of 4  -->
+				
+				<xs:element name="boolean_left" type="xs:boolean"
+					 dfdl:textBooleanJustification="left"
+					dfdl:lengthKind="delimited"
+					dfdl:textBooleanTrueRep="T"
+                      dfdl:textBooleanFalseRep="F"
+                      dfdl:textPadKind="padChar"
+                      dfdl:textTrimKind="padChar"
+                      dfdl:textBooleanPadCharacter="#"
+                      dfdl:textOutputMinLength="2"
+					 />
+					 
+				<xs:element name="boolean_center" type="xs:boolean"
+					 dfdl:textBooleanJustification="center"
+					dfdl:lengthKind="delimited"
+					dfdl:textBooleanTrueRep="T"
+                      dfdl:textBooleanFalseRep="F"
+                      dfdl:textPadKind="padChar"
+                      dfdl:textTrimKind="padChar"
+                      dfdl:textBooleanPadCharacter="#"
+                       dfdl:textOutputMinLength="3"
+					 />	 
+
+ 				<xs:element name="boolean_right" type="xs:boolean"
+					 dfdl:textBooleanJustification="right"
+					dfdl:lengthKind="delimited"
+					dfdl:textBooleanTrueRep="T"
+                      dfdl:textBooleanFalseRep="F"
+                      dfdl:textPadKind="padChar"
+                      dfdl:textTrimKind="padChar"
+                      dfdl:textBooleanPadCharacter="#"
+                       dfdl:textOutputMinLength="4"
+					 />
+				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	
+
+</xs:schema>

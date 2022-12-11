@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<tdml:testSuite suiteName="multiple-diagnostics"
+  description="Show that more than one diagnostic is returned from various scenarios."
+  xmlns:tdml="http://www.ibm.com/xmlns/dfdl/testData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:ct="http://w3.ibm.com/xmlns/dfdl/ctInfoset" xmlns:ex="http://example.com"
+  xmlns="http://example.com">
+
+  <tdml:defineSchema name="twoMissingTypeDefs">
+    <xs:include schemaLocation="org/apache/daffodil/xsd/DFDLGeneralFormat.dfdl.xsd"/>
+    <dfdl:format ref="ex:GeneralFormat" />
+
+    <xs:element name="err1" type="type_doesnt_exist" />
+    <xs:element name="err2" type="another_type_doesnt_exist" />
+
+  </tdml:defineSchema>
+
+  <tdml:parserTestCase name="twoMissingTypeDefErrors"
+    root="err1" model="twoMissingTypeDefs"
+    description="Two errors from two different elements of the same schema document.">
+
+    <tdml:document />
+
+    <tdml:errors>
+      <tdml:error>type_doesnt_exist</tdml:error>
+      <tdml:error>another_type_doesnt_exist</tdml:error>
+    </tdml:errors>
+
+  </tdml:parserTestCase>
+
+
+  <tdml:defineSchema name="withManyErrors1">
+    <dfdl:format initiator="" leadingSkip="0" trailingSkip="0"
+      initiatedContent="no" />
+    <xs:element name="err1" type="xs:int" />
+    <xs:element name="err1" type="xs:string" />
+  </tdml:defineSchema>
+
+  <tdml:parserTestCase name="manyErrors1" root="err1"
+    model="withManyErrors1"
+    description="We would like many different errors here since there are many top level elements, and sequences with many terms in them.">
+
+    <tdml:document />
+
+    <tdml:errors>
+      <!-- <tdml:error>representation</tdml:error> -->
+      <tdml:error>err1</tdml:error>
+      <tdml:error>Duplicate</tdml:error>
+    </tdml:errors>
+
+  </tdml:parserTestCase>
+
+  <tdml:defineSchema name="withManyErrors2">
+      <xs:include schemaLocation="org/apache/daffodil/xsd/DFDLGeneralFormat.dfdl.xsd"/>
+    <dfdl:format ref="ex:GeneralFormat" 
+      initiator="" leadingSkip="0" trailingSkip="0" sequenceKind="ordered" encoding="UTF-8"/>
+    <xs:element name="v1" type="xs:int" />
+    <xs:element name="v2" type="xs:string" />
+    <xs:element name="err1">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="ex:err2" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="foo" type="xs:float">
+      <xs:annotation>
+        <xs:appinfo source="http://www.ogf.org/dfdl/">
+          <dfdl:format /> <!-- wrong annotation. Should be dfdl:element -->
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element name="foo" type="xs:int" />
+          <xs:element name="bar" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+  </tdml:defineSchema>
+
+  <tdml:parserTestCase name="manyErrors2" root="err1"
+    model="withManyErrors2"
+    description="We would like many different errors here since there are many top level elements, and sequences with many terms in them.">
+
+    <tdml:document />
+
+    <!-- This test is no-longer representative of what we're trying
+    to illustrate which is that we can gather more than one error up 
+    at a time. Some errors are now more severe, and cause more disruption
+    of our ability to keep going and gather more diagnostics.
+    
+    At some point in the future this test and others should be adapted to
+    enlarge again the scope of diagnostics we gather before failure. But for now
+    this isn't considered high priority (2020.02.22  Mike Beckerle)
+    -->
+    <tdml:errors>
+    <!-- this now gets the 3 most serious errors. Never gets around to 
+         the properties as it has given up processing those constructs. -->
+      <!-- <tdml:error>representation</tdml:error> -->
+      
+      <tdml:error>immediate type</tdml:error>
+      <tdml:error>named type</tdml:error>
+      <tdml:error>not both</tdml:error>
+
+      <!-- Dont get invalidity error anymore. 
+      <tdml:error>invalid</tdml:error>
+      <tdml:error>dfdl:format</tdml:error>
+      -->
+      <!-- Don't get this anymore - stops once the schema is invalid
+      <tdml:error>ex:err2</tdml:error>
+      <tdml:error>referenced</tdml:error>
+      -->
+    </tdml:errors>
+
+  </tdml:parserTestCase>
+
+</tdml:testSuite>

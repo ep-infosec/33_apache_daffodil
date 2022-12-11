@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<testSuite suiteName="AW" xmlns="http://www.ibm.com/xmlns/dfdl/testData"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ex="http://example.com"
+  defaultRoundTrip="true"
+  defaultImplementations="ibm daffodil">
+
+  <!-- See DFDL-1556 to enable round trip -->
+  <parserTestCase name="AW000" root="list" model="AW.dfdl.xsd"
+    description="escape character and escape block, variable length"
+    roundTrip="false">
+    <document><![CDATA[item0,item#01,#,i#,t#,e#,m#,2,#A#,#Citem3,ite#,m4
+/*,,,*/,Item1,/*/AAA*/,/*,,,/**]*/,Item*/4,Item/**/5,/*,6*/,Item/!7
+]]></document>
+    <infoset>
+      <dfdlInfoset>
+        <ex:list>
+          <character>item0</character>
+          <character>item01</character>
+          <character>,i,t,e,m,2</character>
+          <character>A,Citem3</character>
+          <character>ite,m4</character>
+          <block>,,,</block>
+          <block>Item1</block>
+          <block>/AAA</block>
+          <block>,,,/**]</block>
+          <block>Item*/4</block>
+          <block>Item/**/5</block>
+          <block>,6</block>
+          <block>Item/!7</block>
+        </ex:list>
+      </dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <!-- See DFDL-1556 to enable round trip -->
+  <parserTestCase name="AW001" root="list" model="AW.dfdl.xsd"
+    description="escape character and escape block, variable length"
+    roundTrip="false">
+    <document>
+	  <documentPart type="text" replaceDFDLEntities="true"><![CDATA[item0,item#01,#,i#,t#,e#,m#,2,#,#B#,item3,ite#,m4#%LF;,item5%LF;Item0,Item1,/*A,A*/,/*AAA/*/,Item*/,Item/**/5,/*,*/,/*%LF;%LF;7%LF;%LF;%LF;*/%LF;]]></documentPart>
+	</document>
+    <infoset>
+      <dfdlInfoset>
+        <ex:list>
+          <character>item0</character>
+          <character>item01</character>
+          <character>,i,t,e,m,2</character>
+          <character>,B,item3</character>
+          <character>ite,m4&#x0A;</character>
+          <character>item5</character>
+          <block>Item0</block>
+          <block>Item1</block>
+          <block>A,A</block>
+          <block>AAA/</block>
+          <block>Item*/</block>
+          <block>Item/**/5</block>
+          <block>,</block>
+          <block>&#x0A;&#x0A;7&#x0A;&#x0A;&#x0A;</block>
+        </ex:list>
+      </dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+</testSuite>

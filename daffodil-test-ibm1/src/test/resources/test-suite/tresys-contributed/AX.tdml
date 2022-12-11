@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<testSuite suiteName="AX" xmlns="http://www.ibm.com/xmlns/dfdl/testData"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ex="http://example.com"
+  defaultImplementations="ibm daffodil">
+
+  <parserTestCase name="AX000" root="list" model="AX.dfdl.xsd"
+    description="escape character and escape block, fixed length">
+    <document>
+      <documentPart type="text" replaceDFDLEntities="true"><![CDATA[aaaaa,bb#,b,ccc#,,dddd#,ee#]]></documentPart>
+      <documentPart type="text" replaceDFDLEntities="true"><![CDATA[e,fffff%LF;]]></documentPart>
+      <documentPart type="text" replaceDFDLEntities="true"><![CDATA[AAAAAAAAAAAAAAA,/*BBBBBB/*x,xBB*/,CCCCCC/*,,,*/CC,D/*x*/D/*z*/DDD,/*EE]]></documentPart>
+      <documentPart type="text" replaceDFDLEntities="true"><![CDATA[-------E*/,FFFFFF\/*xxxxxxx,GGG/*G,G\*/GG%LF;]]></documentPart>
+    </document>
+    <infoset>
+      <dfdlInfoset>
+        <ex:list>
+          <character>aaaaa</character>
+          <character>bb,b</character>
+          <character>ccc,</character>
+          <!-- <character>dddd,ee&#xA;e</character> -->
+          <character>dddd,eee</character>
+          <character>fffff</character>
+          <block>AAAAAAAAAAAAAAA</block>
+          <block>BBBBBB/*x,xBB</block>
+          <block>CCCCCC/*</block>
+          <!-- DFDL Spec section 14.2.2 says when OCK is parsed, behavior is like AnyEmpty
+               which says that these optional empty string elements are NOT created.
+               
+               To get empty strings created there would have to be a syntax like 
+               in the data stream, like initiator and terminator with
+               emptyValueDelimiterPolicy such that there is syntax for empty elements.
+            -->
+          <!-- 
+            <block></block>
+            <block></block>
+            --> 
+          <block>*/CC</block>
+          <block>D/*x*/D/*z*/DDD</block>
+          <!-- <block>EE&#xA;E</block> -->
+          <block>EE-------E</block>
+          <block>FFFFFF\/*xxxxxxx</block>
+          <block>GGG/*G</block>
+          <block>G\*/GG</block>
+        </ex:list>
+      </dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+</testSuite>
